@@ -20,7 +20,7 @@ def catch_all(path):
 	:param path:
 	:return:
 	"""
-	return render_template("random_200.html", random_text=random_string(200))
+	return render_template("random_200.html", random_text=random_string(5000)), random.randrange(400, 499, 1)
 
 
 def random_string(n):
