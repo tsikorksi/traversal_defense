@@ -17,10 +17,9 @@ def catch_all(path):
 	"""
 	Anti-Brute: We write a catch-all function that generates a page of random size,
 	thus preventing tools like dirb
-	:param path:
-	:return:
+	:return: the template with a random size and random error code
 	"""
-	return render_template("random_200.html", random_text=random_string(5000)), random.randrange(400, 499, 1)
+	return render_template("random_200.html", path=path, random_text=random_string(5000)), random.randrange(400, 499, 1)
 
 
 def random_string(n):
