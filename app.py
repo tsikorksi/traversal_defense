@@ -1,10 +1,16 @@
 import random
 import string
+import os
 
 from flask import Flask, render_template
 
 app = Flask(__name__)
 
+safe_path = os.path.abspath('user_images')
+
+def is_safe_path(requested_path):
+    if os.path.commonprefix((os.path.realpath(requested_path), safe_path)) != safe_path:
+      # Error, permission denied
 
 @app.route('/')
 def hello_world():  # put application's code here
