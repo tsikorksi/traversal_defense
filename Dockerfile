@@ -9,6 +9,6 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-Expose 5000
+EXPOSE 4000
 
-CMD flask run -h 0.0.0.0 -p 5000
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
