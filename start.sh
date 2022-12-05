@@ -1,6 +1,4 @@
 #!/bin/bash
 app="traversal_defense"
-docker build -t ${app} .
-docker run -d -p 56733:80 \
-  --name=${app} \
-  -v $PWD:/app ${app}
+docker build . -t traversal_defense
+docker run -p 5000:5000 -d traversal_defense
