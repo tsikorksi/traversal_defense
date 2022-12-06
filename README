@@ -1,0 +1,6 @@
+in parent folder of traversal_defense, run docker build traversal_defense
+
+``` bash
+docker build . -t traversal_defense
+docker run -p 5000:5000 -d traversal_defense
+```

@@ -29,7 +29,7 @@ def catch_all(path):
 	:return: the template with a random size and random error code
 	"""
 	return render_template("random_200.html", path=path,
-							random_text=random_string(random.randrange(3000, 8000))), random.randrange(200, 299, 1)
+							                 random_text=random_string(random.randrange(3000, 8000))), random.randrange(200, 299, 1)
 
 
 def random_string(n):
@@ -52,4 +52,5 @@ def get_image():
     
 
 if __name__ == '__main__':
-	app.run()
+	port = int(os.environ.get('PORT', 5000))
+	app.run(debug=True, host='0.0.0.0', port=port)
