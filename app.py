@@ -2,7 +2,7 @@ import random
 import string
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,7 +10,10 @@ safe_path = os.path.abspath('user_images')
 
 def is_safe_path(requested_path):
     if os.path.commonprefix((os.path.realpath(requested_path), safe_path)) != safe_path:
-      # Error, permission denied
+      return false
+    else:
+      return true
+
 
 @app.route('/')
 def hello_world():  # put application's code here
@@ -32,6 +35,21 @@ def catch_all(path):
 def random_string(n):
 	return str(''.join(random.choices(string.ascii_uppercase + string.digits, k=n)))
 
+
+@app.route('/img', defaults={'file': ''})
+def get_image():
+  file = request.args.get('file')
+  if file == '':
+    return 'No file given.'
+  
+  req_path = path.join(__dirname, '/user_images/', file)
+  
+  if (is_safe_path(req_path)):
+    os.sendfile(
+      path.join(__dirname, '/user_images/', file))
+  else:
+    return 'Unauthorized file path!'
+    
 
 if __name__ == '__main__':
 	app.run()
