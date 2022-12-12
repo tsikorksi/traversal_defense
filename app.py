@@ -2,9 +2,17 @@ import random
 import string
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, send_file
 
 app = Flask(__name__)
+
+safe_path = os.path.realpath('placeholder.txt')
+
+def is_safe_path(requested_file):
+    if os.path.commonprefix((os.path.realpath(requested_file), safe_path)) != safe_path:
+      return False
+    else:
+      return True
 
 
 @app.route('/')
@@ -27,6 +35,22 @@ def catch_all(path):
 def random_string(n):
 	return str(''.join(random.choices(string.ascii_uppercase + string.digits, k=n)))
 
+
+@app.route('/img', defaults={'file': ''}, methods=['GET'])
+@app.route('/img/', defaults={'file': ''}, methods=['GET'])
+def get_image(file):
+  file = request.args.get('file')
+  
+  if file == '' or file is None:
+    return 'No file given.'
+
+  req_path = os.path.join('user_images/', file)
+  
+  if (is_safe_path(file)):
+    return send_file(req_path)
+  else:
+    return 'Unauthorized file path!'
+    
 
 if __name__ == '__main__':
 	port = int(os.environ.get('PORT', 5000))
