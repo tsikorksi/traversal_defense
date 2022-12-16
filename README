@@ -4,3 +4,9 @@ in parent folder of traversal_defense, run docker build traversal_defense
 docker build . -t traversal_defense
 docker run -p 5000:5000 -d traversal_defense
 ```
+
+Use the test login credentials:
+username/email: test@test.com
+password: test
+
+Try requesting: 'http://127.0.0.1:5000/img/?file=something.txt' to get the only file in your directory
